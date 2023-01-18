@@ -20,5 +20,8 @@ from myap import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home,name='home')
+    path('', views.home,name='home'),
+    path('maintenance', views.maintenance, name='maintenance'),
+    path('currencies',views.view_currencies, name='currencies'),
+
 ]

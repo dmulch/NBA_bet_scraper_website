@@ -28,3 +28,11 @@ class Rates(models.Model):
         return self.currency.iso + " " + self.x_currency + " " + str(self.rate)
     def __str__(self):
         return self.currency.iso + " " + self.x_currency + " " + str(self.rate)
+
+class Teams(models.Model):
+    short_name = models.CharField(max_length=3)
+    long_name = models.CharField(max_length=25)
+    def __repr__(self):
+        return self.long_name + "(" + self.short_name + ")"
+    def __str__(self):
+        return self.long_name + "(" + self.short_name + ")"

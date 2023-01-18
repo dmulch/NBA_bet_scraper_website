@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+{% for c in currencies %} <!-- this is how we template -->
+    <tr><td>{{ c.iso }}</td><td>{{ c.long_name }}</td></tr>
+
+{% endfor %}
+
+</table>
+</body>
+</html>
