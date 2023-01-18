@@ -86,7 +86,7 @@ DATABASES = {
 """
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgresql://postgres:postgres@localhost:5432/dm3729',
+    'default': dj_database_url.config(default='postgresql://postgres:admin@localhost:5432/dm3729',
                                           conn_max_age=600)
 }
 
