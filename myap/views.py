@@ -24,9 +24,15 @@ def maintenance(request):
         if choice == "currencies":
             support_functions.add_currencies(support_functions.get_currency_list())
             c_list = Currency.objects.all()
-            print("Got c_list", len(c_list))
+            #print("Got c_list", len(c_list))
             data['currencies'] = c_list
             #return HttpResponseRedirect(reverse('currencies'))
+        if choice == 'teams':
+            support_functions.add_teams(support_functions.get_teams())
+            t_list = Teams.objects.all()
+            print('Got t list', len(t_list))
+            data['teams'] = t_list
+            #return HttpResponseRedirect(reverse('teams'))
     except:
         pass
     return render(request, "maintenance.html", context=data)
@@ -39,6 +45,6 @@ def view_currencies(request):
 
 def view_teams(request):
     data = dict()
-    c_list = Teams.objects.all()
-    data['teams'] = c_list
+    t_list = Teams.objects.all()
+    data['teams'] = t_list
     return render(request,'teams.html',context=data)

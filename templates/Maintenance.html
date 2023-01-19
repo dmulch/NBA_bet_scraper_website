@@ -5,14 +5,26 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Maintenance operations</h1>
+<h1>Maintenance Operations</h1>
 Please select a maintenance action
+<!-- This is the old radio dial
 <form action="" method="get">
  <input type="radio" id="currencies" name="selection" value="currencies">
  <label for="currencies">Update the list of countries and currencies</label><br>
  <input type="radio" id="rates" name="selection" value="rates">
  <label for="rates">Update cross rates</label><br>
  <input name="form_submitted" value="1" type="hidden">
+ <input name="update" value="Do selected action" type="submit">
+</form>
+-->
+<form action="" method="get">
+ <input type="radio" id="teams" name="selection" value="teams">
+ <label for="teams">Update the list of teams</label><br>
+ <input type="radio" id="lines" name="selection" value="lines">
+ <label for="lines">Update game lines</label><br>
+ <input name="form_submitted" value="1" type="hidden">
+     <input type="radio" id="clear" name="selection" value="clear">
+ <label for="clear">Clear teams and lines</label><br>
  <input name="update" value="Do selected action" type="submit">
 </form>
 </body>

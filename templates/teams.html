@@ -12,9 +12,9 @@
         <th>Abbreviation</th>
         <th>Team Name</th>
     </tr>
-    {% for c in currencies %}
+    {% for t in teams %}
         <tr>
-            <td>{{ c.short_name }}</td><td>{{ c.long_name }}</td>
+            <td>{{ t.short_name }}</td><td>{{ t.long_name }}</td>
         </tr>
     {% endfor %}
 </table>

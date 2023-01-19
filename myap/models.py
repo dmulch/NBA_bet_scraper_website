@@ -33,9 +33,9 @@ class Teams(models.Model):
     short_name = models.CharField(max_length=3)
     long_name = models.CharField(max_length=25)
     def __repr__(self):
-        return self.long_name + "(" + self.short_name + ")"
+        return self.long_name + " (" + self.short_name + ")"
     def __str__(self):
-        return self.long_name + "(" + self.short_name + ")"
+        return self.long_name + " (" + self.short_name + ")"
 
 class PastGames(models.Model):
     home_team = models.CharField(max_length=3)

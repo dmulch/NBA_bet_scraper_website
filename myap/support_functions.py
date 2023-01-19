@@ -1,5 +1,5 @@
 # aux functions that don't have a client call and response
-from myap.models import Currency
+from myap.models import Currency, Teams
 
 
 def get_currency_list():
@@ -34,3 +34,35 @@ def add_currencies(currency_list):
             c = Currency(long_name=currency_name, iso=currency_symbol)
             #c.save() #To test out the code, replace this by print(c)
             print(c)
+
+def get_teams():
+    url = 'https://en.wikipedia.org/wiki/Wikipedia:WikiProject_National_Basketball_Association/National_Basketball_Association_team_abbreviations'
+    team_out = list()
+    import requests
+    from bs4 import BeautifulSoup
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text)
+    data_lines = soup.find_all('tr')
+    for lines in data_lines:
+        try:
+            td_tags = lines.find_all('td')
+            short_name = td_tags[0].get_text().strip()
+            long_name = td_tags[1].get_text().strip()
+
+            if short_name.startswith('Abbr') == False:
+                #print(short_name + long_name)
+                team_out.append((short_name,long_name))
+        except:
+            continue
+    return team_out
+
+def add_teams(team_list):
+    for teams in team_list:
+        short_names = teams[0]
+        long_names = teams[1]
+        try:
+            t = Teams.objects.get(short_name=short_names)
+        except:
+            t = Teams(short_name=short_names, long_name=long_names)
+            print(t)
+            t.save()
