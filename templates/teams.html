@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Team Names</h1>
+<table>
+    <tr>
+        <th>Abbreviation</th>
+        <th>Team Name</th>
+    </tr>
+    {% for c in currencies %}
+        <tr>
+            <td>{{ c.short_name }}</td><td>{{ c.long_name }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

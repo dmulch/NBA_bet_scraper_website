@@ -1,8 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
 from myap import support_functions
-from myap.models import Currency
+from myap.models import Currency, Teams
+
+
 #from django.http import HttpResponseRedirect
 #from django.urls import reverse
 
@@ -35,3 +36,9 @@ def view_currencies(request):
     c_list = Currency.objects.all()
     data['currencies'] = c_list
     return render(request,'currencies.html',context=data)
+
+def view_teams(request):
+    data = dict()
+    c_list = Teams.objects.all()
+    data['teams'] = c_list
+    return render(request,'teams.html',context=data)
