@@ -33,6 +33,10 @@ def maintenance(request):
             print('Got t list', len(t_list))
             data['teams'] = t_list
             #return HttpResponseRedirect(reverse('teams'))
+        if choice == 'clear':
+            for i in Teams.objects.all():
+                i.delete()
+            print('data delete')
     except:
         pass
     return render(request, "maintenance.html", context=data)
