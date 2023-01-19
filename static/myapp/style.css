@@ -1,0 +1,23 @@
+h2 {
+    color: #275e3e;
+}
+
+#footer { /* use with id = "footer" */
+   display:inline-block;
+   width:100%;
+   height:1em;
+   padding: 2em 0.25em;
+   text-align: center;
+   font-size: xx-small;
+}
+
+.large_font {
+   font-size: large;
+   color: crimson;
+}
+
+.lobster {
+    color: coral;
+    font-family: 'lobster';
+    font-size: 36px;
+}

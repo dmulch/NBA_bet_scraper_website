@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+    <form action="{% url 'exchange_rate_info' %}" method="get"> #get 'gets' info from user
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <h4>Please select the currency you want to convert from</h4>
+                    <select class="form-control d-inline-block" name="currency_from"> #make sure select has a name attribute
+                        {% for currency in currencies %}
+                            <option value="{{ currency.iso }}">{{ currency.long_name }}</option>
+                       {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <h4>Please select the currency you want to convert to</h4>
+                    <select class="form-control" name="currency_to">
+                        {% for currency in currencies %}
+                            <option value="{{ currency.iso }}">{{ currency.long_name }}</option>
+                       {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="submit">
+    </form>
+
+{% endblock %}
+

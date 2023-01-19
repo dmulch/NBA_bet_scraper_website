@@ -66,3 +66,24 @@ def add_teams(team_list):
             t = Teams(short_name=short_names, long_name=long_names)
             print(t)
             t.save()
+
+def get_currency_rates(iso_code):
+    url = "http://www.xe.com/currencytables/?from=" + iso_code
+    import requests
+    from bs4 import BeautifulSoup
+    x_rate_list = list()
+    try:
+        page_source = BeautifulSoup(requests.get(url).content)
+    except:
+        return x_rate_list
+    data = page_source.find('tbody')
+    data_lines = data.find_all('tr')
+    for line in data_lines:
+        symbol = line.find('th').get_text()
+        data=line.find_all('td')
+        try:
+            x_rate = float(data[2].get_text().strip())
+            x_rate_list.append((symbol,x_rate))
+        except:
+            continue
+    return x_rate_list
