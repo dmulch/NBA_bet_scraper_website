@@ -1,10 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Team Names</h1>
+    <table>
+        <tr>
+            <th>Abbreviation</th>
+            <th>Team Name</th>
+        </tr>
+        {% for t in teams %}
+            <tr>
+                <td>{{ t.short_name }}</td><td>{{ t.long_name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{%  endblock %}
+
+<!--old content
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
         <p>
-    <a href="{%  url 'home'  %}">home</a>
+    <a href="%  url 'home'  %}">home</a>
 </p>
 </head>
 <body>
@@ -15,12 +33,14 @@
         <th>Abbreviation</th>
         <th>Team Name</th>
     </tr>
-    {% for t in teams %}
+    % for t in teams %}
         <tr>
-            <td>{{ t.short_name }}</td><td>{{ t.long_name }}</td>
+            <td>{ t.short_name }}</td><td>{ t.long_name }}</td>
         </tr>
-    {% endfor %}
+    % endfor %}
 </table>
 
 </body>
 </html>
+
+-->
