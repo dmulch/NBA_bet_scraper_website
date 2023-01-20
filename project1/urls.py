@@ -29,4 +29,5 @@ urlpatterns = [
     path('register', views.register_new_user, name="register_user"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('past', views.view_past, name='past'),
+    path('lines', views.view_lines, name='lines')
 ]

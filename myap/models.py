@@ -51,6 +51,16 @@ class PastGames(models.Model):
     def __str__(self):
         return self.home_team + " " + str(self.home_score) + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_score) + " " + str(self.away_money_line)
 
+class TodayLines(models.Model):
+    away_team = models.CharField(max_length=3)
+    away_money_line = models.IntegerField(default=0)
+    home_team = models.CharField(max_length=3)
+    home_money_line = models.IntegerField(default=0)
+    def __repr__(self):
+        return self.home_team + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_money_line)
+    def __str__(self):
+        return self.home_team + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_money_line)
+
 class AccountHolder(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     date_of_birth = models.DateField()

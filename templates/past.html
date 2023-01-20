@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+        <p>
+    <a href="{%  url 'home'  %}">home</a>
+</p>
 </head>
 <body>
-<h1>Team Names</h1>
-<table>
+<h1>Past Results</h1>
+<table >
     <tr>
         <th>Away Team</th>
         <th>Away Line</th>
@@ -16,11 +19,12 @@
         <th>Home Final Score</th>
         <th>Date</th>
     </tr>
-    {% for t in past_list %}
+    {% for t in past %}
         <tr>
-            <td>{{ t.away_team }}</td><td>{{ t.away_line }}</td>
+            <td>{{ t.away_team }}</td><td>{{ t.away_money_line }}</td><td>{{ t.away_score }}</td><td>{{ t.home_team }}</td><td>{{ t.home_money_line }}</td><td>{{ t.home_score }}</td><td>{{ t.game_date }}</td>
         </tr>
     {% endfor %}
 </table>
+hello
 </body>
 </html>

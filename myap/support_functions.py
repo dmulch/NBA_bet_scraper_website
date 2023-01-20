@@ -1,5 +1,5 @@
 # aux functions that don't have a client call and response
-from myap.models import Currency, Teams, PastGames
+from myap.models import Currency, Teams, PastGames, TodayLines
 
 
 def get_currency_list():
@@ -93,6 +93,24 @@ def add_scores(season_scores):
             #print(s)
             s.save()
 
+def add_lines(today_lines):
+    for games in today_lines:
+        teamhome = games[2]
+        mlhome = games[3]
+        teamaway = games[0]
+        mlaway = games[1]
+        try:
+            s = TodayLines.objects.get(home_team=teamhome,
+                                      home_money_line=mlhome,
+                                      away_team=teamaway,
+                                      away_money_line=mlaway)
+        except:
+            s = TodayLines(home_team=teamhome,
+                                      home_money_line=mlhome,
+                                      away_team=teamaway,
+                                      away_money_line=mlaway)
+            #print(s)
+            s.save()
 def get_currency_rates(iso_code):
     url = "http://www.xe.com/currencytables/?from=" + iso_code
     import requests
@@ -113,7 +131,6 @@ def get_currency_rates(iso_code):
         except:
             continue
     return x_rate_list
-
 def get_results():
     import requests
     from bs4 import BeautifulSoup
@@ -166,3 +183,25 @@ def get_results():
             final_game_list.append([team_away,ml_away,away_score,team_home,ml_home,home_score,day_in])
             #print(final_game_list)
     return(final_game_list)
+def get_line_today():
+    import requests
+    from bs4 import BeautifulSoup
+    url = 'https://www.scoresandodds.com/nba?date=2023-01-20'
+    reponse = requests.get(url)
+    soup = BeautifulSoup(reponse.text)
+    all_games = soup.find_all('table', {'class': 'event-card-table'})
+    out_list = list()
+    for i in all_games:
+        away = i.find_all('span', {'class': 'team-emblem'})[0].get_text().strip()
+        home = i.find_all('span', {'class': 'team-emblem'})[1].get_text().strip()
+        away_line = i.find_all('span', {'class': 'data-odds'})[0].get_text()
+        home_line = i.find_all('span', {'class': 'data-odds'})[1].get_text()
+        if away_line == 'even':
+            away_line = 0
+        if home_line == 'even':
+            home_line = 0
+        away_line = int(away_line)
+        home_line = int(home_line)
+        out_list.append(([away, away_line, home, home_line]))
+        # print([away, away_line, home, home_line])
+    return (out_list)
