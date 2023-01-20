@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Team Names</h1>
+<table>
+    <tr>
+        <th>Away Team</th>
+        <th>Away Line</th>
+        <th>Away Final Score</th>
+        <th>Home Team</th>
+        <th>Home Line</th>
+        <th>Home Final Score</th>
+        <th>Date</th>
+    </tr>
+    {% for t in past_list %}
+        <tr>
+            <td>{{ t.away_team }}</td><td>{{ t.away_line }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

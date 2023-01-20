@@ -1,7 +1,8 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from myap import support_functions
-from myap.models import Currency, Teams
+from myap.models import Currency, Teams, AccountHolder, PastGames
 
 
 #from django.http import HttpResponseRedirect
@@ -37,6 +38,15 @@ def maintenance(request):
             for i in Teams.objects.all():
                 i.delete()
             print('data delete')
+        if choice == 'past':
+            for i in PastGames.objects.all():
+                i.delete()
+            print('past delete')
+            game_pull = support_functions.get_results()
+            support_functions.add_scores(game_pull)
+            past_list = Teams.objects.all()
+            print('Got t list', len(t_list))
+            data['past'] = past_list
     except:
         pass
     return render(request, "maintenance.html", context=data)
@@ -59,6 +69,11 @@ def view_teams(request):
     data['teams'] = t_list
     return render(request,'teams.html',context=data)
 
+def view_past(request):
+    data = dict()
+    past_list = PastGames.objects.all()
+    data['past'] = past_list
+    return render(request,'past.html',context=data)
 def exch_rate(request):
     data=dict()
     try:
@@ -76,3 +91,17 @@ def exch_rate(request):
     except:
         pass
     return render(request,"exchange_detail.html",data)
+
+def register_new_user(request):
+    context = dict()
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        new_user = form.save()
+        dob = request.POST["dob"]
+        acct_holder = AccountHolder(user=new_user,date_of_birth=dob)
+        acct_holder.save()
+        return render(request,"home.html",context=dict())
+    else:
+        form = UserCreationForm()
+        context['form'] = form
+        return render(request, "registration/register.html", context)

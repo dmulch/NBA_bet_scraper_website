@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Currency(models.Model):
@@ -37,6 +37,7 @@ class Teams(models.Model):
     def __str__(self):
         return self.long_name + " (" + self.short_name + ")"
 
+
 class PastGames(models.Model):
     home_team = models.CharField(max_length=3)
     home_score = models.IntegerField(default=0)
@@ -49,3 +50,13 @@ class PastGames(models.Model):
         return self.home_team + " " + str(self.home_score) + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_score) + " " + str(self.away_money_line)
     def __str__(self):
         return self.home_team + " " + str(self.home_score) + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_score) + " " + str(self.away_money_line)
+
+class AccountHolder(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    date_of_birth = models.DateField()
+    currencies_visited = models.ManyToManyField(Currency)
+    def __str__(self):
+        return self.user.username
+    def __repr__(self):
+        return self.user.username
+
