@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3>Create an account</h3>
+    <h2>Register</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        Please enter your date of birth <input type="date" name="dob"><br>
+        <button type="submit">Register</button>
+    </form>
+{% endblock %}

@@ -26,7 +26,7 @@ urlpatterns = [
     path('teams', views.view_teams, name='teams'),
     path('currency-selection',views.currency_selection,name="currency_selector"),
     path('exchange_rate_info',views.exch_rate,name="exchange_rate_info"),
-    path('register',views.register_new_user,name="register_user"),
+    path('register', views.register_new_user, name="register_user"),
     path('accounts/', include('django.contrib.auth.urls')),
-
+    path('past', views.view_past, name='past'),
 ]
