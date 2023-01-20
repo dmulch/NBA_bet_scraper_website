@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from myap import support_functions
-from myap.models import Currency, Teams, AccountHolder, PastGames
+from myap.models import Currency, AccountHolder, Teams, PastGames
 
 
 #from django.http import HttpResponseRedirect
@@ -101,7 +101,7 @@ def register_new_user(request):
         dob = request.POST["dob"]
         acct_holder = AccountHolder(user=new_user,date_of_birth=dob)
         acct_holder.save()
-        return render(request,"home.html",context=dict())
+        return render(request,"teams.html",context=dict())
     else:
         form = UserCreationForm()
         context['form'] = form
