@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from myap import support_functions
-from myap.models import Currency, AccountHolder, Teams, PastGames
+from myap.models import Currency, AccountHolder, Teams, PastGames, TodayLines
 
 
 #from django.http import HttpResponseRedirect
@@ -34,18 +34,29 @@ def maintenance(request):
             print('Got t list', len(t_list))
             data['teams'] = t_list
             #return HttpResponseRedirect(reverse('teams'))
+        if choice == 'lines':
+            for i in TodayLines.objects.all():
+                i.delete()
+            print('line delete')
+            line_pull = support_functions.get_line_today()
+            support_functions.add_lines(line_pull)
+            today_line = TodayLines.objects.all()
+            print('Got lines'), len(today_line)
+            data['line'] = today_line
         if choice == 'clear':
             for i in Teams.objects.all():
                 i.delete()
             print('data delete')
+            for i in TodayLines.objects.all():
+                i.delete()
         if choice == 'past':
             for i in PastGames.objects.all():
                 i.delete()
             print('past delete')
             game_pull = support_functions.get_results()
             support_functions.add_scores(game_pull)
-            past_list = Teams.objects.all()
-            print('Got t list', len(t_list))
+            past_list = PastGames.objects.all()
+            print('Got t list', len(past_list))
             data['past'] = past_list
     except:
         pass
@@ -74,6 +85,12 @@ def view_past(request):
     past_list = PastGames.objects.all()
     data['past'] = past_list
     return render(request,'past.html',context=data)
+
+def view_lines(request):
+    data = dict()
+    today_line = TodayLines.objects.all()
+    data['line'] = today_line
+    return render(request,'lines.html',context=data)
 def exch_rate(request):
     data=dict()
     try:

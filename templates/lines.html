@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Today's Lines</title>
+</head>
+<body>
+<h1>Today's Lines</h1>
+<table>
+        <th>Away Team</th>
+        <th>Away Line</th>
+        <th>Home Team</th>
+        <th>Home Line</th>
+    </tr>
+    {% for t in line %}
+        <tr>
+            <td>{{ t.away_team }}</td><td>{{ t.away_money_line }}</td><td>{{ t.home_team }}</td><td>{{ t.home_money_line }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
