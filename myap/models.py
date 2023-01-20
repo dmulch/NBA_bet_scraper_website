@@ -40,6 +40,7 @@ class Teams(models.Model):
 
 class PastGames(models.Model):
     home_team = models.CharField(max_length=3)
+
     home_score = models.IntegerField(default=0)
     home_money_line = models.IntegerField(default=0)
     away_team = models.CharField(max_length=3)

@@ -166,3 +166,27 @@ def get_results():
             final_game_list.append([team_away,ml_away,away_score,team_home,ml_home,home_score,day_in])
             #print(final_game_list)
     return(final_game_list)
+
+
+def get_line_today():
+    import requests
+    from bs4 import BeautifulSoup
+    url = 'https://www.scoresandodds.com/nba?date=2023-01-20'
+    reponse = requests.get(url)
+    soup = BeautifulSoup(reponse.text)
+    all_games = soup.find_all('table', {'class': 'event-card-table'})
+    out_list = list()
+    for i in all_games:
+        away = i.find_all('span', {'class': 'team-emblem'})[0].get_text().strip()
+        home = i.find_all('span', {'class': 'team-emblem'})[1].get_text().strip()
+        away_line = i.find_all('span', {'class': 'data-odds'})[0].get_text()
+        home_line = i.find_all('span', {'class': 'data-odds'})[1].get_text()
+        if away_line == 'even':
+            away_line = 0
+        if home_line == 'even':
+            home_line = 0
+        away_line = int(away_line)
+        home_line = int(home_line)
+        out_list.append(([away, away_line, home, home_line]))
+        # print([away, away_line, home, home_line])
+    return (out_list)
