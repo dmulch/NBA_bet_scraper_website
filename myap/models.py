@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -49,3 +50,20 @@ class PastGames(models.Model):
         return self.home_team + " " + str(self.home_score) + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_score) + " " + str(self.away_money_line)
     def __str__(self):
         return self.home_team + " " + str(self.home_score) + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_score) + " " + str(self.away_money_line)
+
+class Convert(models.Model):
+    input_name = models.CharField(max_length=3)
+    short_name = models.ForeignKey(Teams, on_delete=models.CASCADE)
+    def __repr__(self):
+        return self.input_name + " " + self.teams.short_name
+    def __str__(self):
+        return self.input_name + " " + self.teams.short_name
+
+class AccountHolder(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    date_of_birth = models.DateField()
+    #bets_made = models.ManyToManyField(Teams) -- ability to track users bets may be cool to include in the future
+    def __str__(self):
+        return self.user.username
+    def __repr__(self):
+        return self.user.username

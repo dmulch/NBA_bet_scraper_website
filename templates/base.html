@@ -11,10 +11,21 @@
 
 </head>
 <body> <!-- style="background-color: #b9d9eb" columbia blue background lmao-->
-    {% block content %}
-        <-- This is where the page content will go! -->
-    {% endblock %}
-   <div id="footer">
+    <img src='{% static "myapp/logo.png" %}' alt="image" width="400px">
+        <span style="float:right;">
+            {% if user.username %}
+                <span class="large-font">Hello {{ user.username }}!</span><br>
+                <a href="{% url 'logout' %}"><button>logout</button></a>
+            {% else %}
+                <span class="large-font">Hello Anonymous User!</span><br>
+                <a href="{% url 'login' %}"><button>login</button></a>/
+                <a href="{% url 'register_user' %}"><button>register</button></a>
+            {% endif %}
+        </span>
+        {% block content %}
+            <-- This is where the page content will go! -->
+        {% endblock %}
+    <div id="footer">
         ©2023 Pedley & Mulcahy Associates. All Rights Reserved
     </div>
 </body>

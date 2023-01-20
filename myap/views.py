@@ -1,7 +1,8 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from myap import support_functions
-from myap.models import Currency, Teams
+from myap.models import Currency, Teams, AccountHolder
 
 
 #from django.http import HttpResponseRedirect
@@ -66,6 +67,7 @@ def exch_rate(request):
         currency2 = request.GET['currency_to']
         c1 = Currency.objects.get(iso=currency1)
         c2 = Currency.objects.get(iso=currency2)
+
         data['currency1'] = c1
         data['currency2'] = c2
         try:
@@ -76,3 +78,17 @@ def exch_rate(request):
     except:
         pass
     return render(request,"exchange_detail.html",data)
+
+def register_new_user(request):
+    context = dict()
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        new_user = form.save()
+        dob = request.POST["dob"]
+        acct_holder = AccountHolder(user=new_user,date_of_birth=dob)
+        acct_holder.save()
+        return render(request,"home.html",context=dict())
+    else:
+        form = UserCreationForm()
+        context['form'] = form
+        return render(request, "registration/register.html", context="context")

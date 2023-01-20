@@ -15,6 +15,8 @@ import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+LOGIN_REDIRECT_URL = "/teams"
+LOGOUT_REDIRECT_URL = "/teams"
 
 
 # Quick-start development settings - unsuitable for production
