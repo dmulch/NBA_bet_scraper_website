@@ -54,7 +54,7 @@ class PastGames(models.Model):
 class AccountHolder(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     date_of_birth = models.DateField()
-    currencies_visited = models.ManyToManyField(Currency)
+    #currencies_visited = models.ManyToManyField(Currency)
     #bets_made = models.ManyToManyField(Teams) -- ability to track users bets may be cool to include in the future
     def __str__(self):
         return self.user.username
