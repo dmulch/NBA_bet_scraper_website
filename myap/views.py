@@ -37,7 +37,7 @@ def maintenance(request):
         if choice == 'lines':
             for i in TodayLines.objects.all():
                 i.delete()
-            print('line delete')
+            print('past lines delete')
             line_pull = support_functions.get_line_today()
             support_functions.add_lines(line_pull)
             today_line = TodayLines.objects.all()
@@ -46,18 +46,26 @@ def maintenance(request):
         if choice == 'clear':
             for i in Teams.objects.all():
                 i.delete()
-            print('data delete')
+            print('data teams delete')
             for i in TodayLines.objects.all():
                 i.delete()
         if choice == 'past':
             for i in PastGames.objects.all():
                 i.delete()
-            print('past delete')
+            print('past games deleted')
             game_pull = support_functions.get_results()
             support_functions.add_scores(game_pull)
             past_list = PastGames.objects.all()
             print('Got t list', len(past_list))
             data['past'] = past_list
+        if choice == "bets":
+            for i in Bets.objects.all():
+                i.delete()
+            print('past bets deleted')
+            support_functions.add_bet_rank(support_functions.get_bet_rank())
+            b_list = Bets.objects.all()
+            print('got b list', len(b_list))
+            data['ranked_bets'] = b_list
     except:
         pass
     return render(request, "maintenance.html", context=data)
