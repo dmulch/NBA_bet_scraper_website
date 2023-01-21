@@ -70,3 +70,12 @@ class AccountHolder(models.Model):
         return self.user.username
     def __repr__(self):
         return self.user.username
+
+class Bets(models.Model):
+    team = models.CharField(max_length=3)
+    line = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.team + " " + self.line
+    def __repr__(self):
+        return self.team + " " + self.line

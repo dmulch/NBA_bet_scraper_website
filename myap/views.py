@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from myap import support_functions
-from myap.models import Currency, AccountHolder, Teams, PastGames, TodayLines
+from myap.models import Currency, AccountHolder, Teams, PastGames, TodayLines, Bets
 
 
 #from django.http import HttpResponseRedirect
@@ -123,3 +123,9 @@ def register_new_user(request):
         form = UserCreationForm()
         context['form'] = form
         return render(request, "registration/register.html", context)
+
+def bets(request):
+    data = {}
+    rankings = Bets.objects.all()
+    data['ranked_bets'] = rankings
+    return render(request, "bets.html", context=data)

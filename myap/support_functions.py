@@ -1,5 +1,5 @@
 # aux functions that don't have a client call and response
-from myap.models import Currency, Teams, PastGames, TodayLines
+from myap.models import Currency, Teams, PastGames, TodayLines, Bets
 
 
 def get_currency_list():
@@ -205,3 +205,63 @@ def get_line_today():
         out_list.append(([away, away_line, home, home_line]))
         # print([away, away_line, home, home_line])
     return (out_list)
+
+def get_bet_rank():
+    ##Used to reformat input historical score data
+    team_results = []
+    for i in PastGames.objects.all():
+        team_results.append([i[0], i[2], i[5], i[1]])
+        team_results.append([i[3], i[5], i[2], i[4]])
+
+    ##Calculates games won out of last_x number of games played
+    last_x = 10
+    win_percentage = {}
+    for game in team_results:
+        if game[1] > game[2]:  # won game
+            if game[0] in win_percentage:  # in dictionary
+                if win_percentage[game[0]][1] < last_x:  # less than x games analyzed
+                    win_percentage[game[0]][0] += 1
+                    win_percentage[game[0]][1] += 1
+                else:  # x games analyzed
+                    win_percentage[game[0]][0] += 1
+            else:  # not in dictionary
+                win_percentage[game[0]] = [1, 1]
+        else:  # lost game
+            if game[0] in win_percentage:  # in dictionary
+                if win_percentage[game[0]][1] < last_x:  # less than x games analyzed
+                    win_percentage[game[0]][1] += 1
+                else:  # x games analyzed
+                    win_percentage[game[0]][0] -= 1
+            else:  # not in dictionary
+                win_percentage[game[0]] = [0, 1]
+
+    ##Used to reformat line data slightly
+    all_lines = {}
+
+    for game in TodayLines.objects.all():
+        all_lines[game[0]] = game[1]
+        all_lines[game[2]] = game[3]
+
+    ##Combining winning percentage and today's lines to calculate today's expected return
+    algo = {}
+    bet_size = 100
+    for i in all_lines:
+        if i[0] in win_percentage:
+            if i[1] > 0:
+                algo[i[0]] = ((bet_size * (i[1] / 100)) * (win_percentage[i[0]][0] / win_percentage[i[0]][1]))
+            elif i[1] < 0:
+                algo[i[0]] = ((bet_size * (100 / abs(i[1]))) * (win_percentage[i[0]][0] / win_percentage[i[0]][1]))
+    algo = {k: v for k, v in sorted(algo.items(), key=lambda item: item[1], reverse=True)}
+    ranked_bets = {i:all_lines[i] for i in algo}
+    return(ranked_bets)
+
+def add_bet_rank(ranked_bets):
+    for i in ranked_bets:
+        ranked_team = i
+        ranked_line = ranked_bets[i]
+        try:
+            s = Bets.objects.get(team=ranked_team, line=ranked_line)
+        except:
+            s = Bets(team=ranked_team, line=ranked_line)
+            print(s)
+            #s.save()

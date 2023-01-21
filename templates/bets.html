@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class=" text-center">
+        <p>These are the ranked bets for today:</p>
+    </div>
+    <table>
+            <th>Team</th>
+            <th>Line</th>
+        </tr>
+        {% for t in ranked_bets %}
+            <tr>
+                <td>{{ t.team }}</td><td>{{ t.line }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{%  endblock %}
