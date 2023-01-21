@@ -10,14 +10,16 @@
         </span>
     </head>
     <h2 class=" text-center point">
-        Todays Best Bets</h2>
-    <table class="point">
+        Today's Best Bets</h2>
+    <table class="point" >
             <th>Team</th>
-            <th>Line</th>
+            <th>Today's Line</th>
+            <th>ML Winning %</th>
+            <th>ML Winning $</th>
         </tr>
         {% for t in ranked_bets %}
             <tr>
-                <td>{{ t.team }}</td><td>{{ t.line }}</td>
+                <td>{{ t.team }}</td><td>{{ t.line }}</td><td>{{ t.percent }}</td><td>{{ t.winnings }}</td>
             </tr>
         {% endfor %}
     </table>

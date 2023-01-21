@@ -261,17 +261,47 @@ def get_bet_rank():
                 algo[i] = ((bet_size * (100 / abs(all_lines[i]))) * (win_percentage[i][0] / win_percentage[i][1]))
             else:
                 algo[i] = 0
-
     algo = {k: v for k, v in sorted(algo.items(), key=lambda item: item[1], reverse=True)}
-    ranked_bets = {i: all_lines[i] for i in algo}
+
+    ##Calculating total winnings ($) for past xx games based on bet size $xx
+    winnings = {}
+    for game in team_results:
+        if game[1] > game[2]:  # won game
+            if game[3] > 0:  # underdog
+                if game[0] in winnings:  # in dictionary
+                    if len(winnings[game[0]]) < last_x:
+                        winnings[game[0]].append((bet_size * (game[3] / 100)))
+                else:  # not in dictionary
+                    winnings[game[0]] = [(bet_size * (game[3] / 100))]
+            else:  # favorite
+                if game[0] in winnings:  # in dictionary
+                    if len(winnings[game[0]]) < last_x:  # x games analyzed
+                        winnings[game[0]].append((bet_size * (100 / abs(game[3]))))
+                else:  # not in dictionary
+                    winnings[game[0]] = [(bet_size * (100 / abs(game[3])))]
+        else:  # lost game
+            if game[0] in winnings:  # in dictionary
+                if len(winnings[game[0]]) > last_x:  # x games analyzed
+                    winnings[game[0]].append(-bet_size)
+            else:  # not in dictionary
+                winnings[game[0]] = [-bet_size]
+
+    ##Combines ranked dictionary of all outputs with team as key
+
+    ranked_bets = {i:[all_lines[i],float((win_percentage[i][0] / win_percentage[i][1]) * 100),
+                      round(sum(winnings[i]),2)] for i in algo}
     return(ranked_bets)
 
 def add_bet_rank(ranked_bets):
     for i in ranked_bets:
         ranked_team = i
-        ranked_line = ranked_bets[i]
+        ranked_line = ranked_bets[i][0]
+        ranked_win_percentage = ranked_bets[i][1]
+        ranked_winnings = ranked_bets[i][2]
         try:
-            s = Bets.objects.get(team=ranked_team, line=ranked_line)
+            s = Bets.objects.get(team=ranked_team, line=ranked_line,
+                                 percent=ranked_win_percentage, winnings=ranked_winnings)
         except:
-            s = Bets(team=ranked_team, line=ranked_line)
+            s = Bets(team=ranked_team, line=ranked_line,
+                                 percent=ranked_win_percentage, winnings=ranked_winnings)
             s.save()
