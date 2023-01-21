@@ -29,9 +29,11 @@ The current time is:
 </html>
 -->
 {% extends "base.html" %}
+{%  load static %}
 {% block content %}
-    <div class=" text-center">
-        <h1 class="tomorrow" ><p>underscore_</p></h1>
+    <div class="text-center" >
+        <img src={% static "myapp/on_fire.gif" %} alt="gif" width="200px">
+        <h1 class="tomorrow" >underscore_</h1>
     </div>
     <div class="container">
         <div class="row">

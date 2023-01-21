@@ -1,5 +1,6 @@
 h1 {
     font-size: 100px;
+    color: yellow;
 }
 
 h2 {
@@ -7,15 +8,15 @@ h2 {
 }
 
 span {
-    color: yellow;
+    color: white;
 }
 
 p {
-    color: yellow;
+    color: white;
 }
 
 a {
-    color: yellow;
+    color: white;
     text-decoration-line: underline;
 }
 #footer { /* use with id = "footer" */
