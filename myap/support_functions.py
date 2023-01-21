@@ -993,10 +993,9 @@ def add_bet_rank(ranked_bets):
         ranked_winnings = ranked_bets[i][2]
         ranked_payout = ranked_bets[i][3]
         try:
-            s = Bets.objects.get(team=ranked_team, line=ranked_line,
-                                 percent=ranked_win_percentage, winnings=ranked_winnings,
-                                 payout=ranked_payout)
+            s = Bets.objects.get(team=ranked_team, line=ranked_line, percent=ranked_win_percentage,
+                                 winnings=ranked_winnings, payout=ranked_payout)
         except:
-            s = Bets(team=ranked_team, line=ranked_line,
-                     percent=ranked_win_percentage, winnings=ranked_winnings, payout=ranked_payout)
+            s = Bets(team=ranked_team, line=ranked_line, percent=ranked_win_percentage,
+                     winnings=ranked_winnings, payout=ranked_payout)
             s.save()
