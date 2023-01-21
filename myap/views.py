@@ -46,9 +46,16 @@ def maintenance(request):
         if choice == 'clear':
             for i in Teams.objects.all():
                 i.delete()
-            print('data teams delete')
+            print('teams delete')
             for i in TodayLines.objects.all():
                 i.delete()
+            print('lines delete')
+            for i in PastGames.objects.all():
+                i.delete()
+            print('past delete')
+            for i in Bets.objects.all():
+                i.delete()
+            print('bets delete')
         if choice == 'past':
             for i in PastGames.objects.all():
                 i.delete()

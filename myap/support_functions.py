@@ -186,7 +186,7 @@ def get_results():
 def get_line_today():
     import requests
     from bs4 import BeautifulSoup
-    url = 'https://www.scoresandodds.com/nba?date=2023-01-20'
+    url = 'https://www.scoresandodds.com/nba'
     reponse = requests.get(url)
     soup = BeautifulSoup(reponse.text)
     all_games = soup.find_all('table', {'class': 'event-card-table'})

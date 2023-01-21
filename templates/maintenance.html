@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <p>
-    <a href="{%  url 'home'  %}">home</a>
-</p>
-</head>
+        <head>
+        <span style="float:center; color: yellow">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'bets' %}">Power Bets</a>
+            <a href="{% url 'lines' %}">Todays Lines</a>
+            <a href="{% url 'past' %}">Past Games</a>
+            <a href="{% url 'teams' %}">Current Teams</a>
+        </span>
+    </head>
 <body>
 {% if user.is_superuser %}
     <h1>Maintenance operations</h1>
@@ -19,10 +21,10 @@
         <input type="radio" id="past" name="selection" value="past">
         <label for="past">Update past games</label><br>
         <input name="form_submitted" value="1" type="hidden">
-        <input type="radio" id="clear" name="selection" value="clear">
-        <label for="clear">Clear teams and lines</label><br>
         <input type="radio" id="bets" name="selection" value="bets">
         <label for="bets">Update bet rankings</label><br>
+        <input type="radio" id="clear" name="selection" value="clear">
+        <label for="clear">Clear database (ranked bets, todays lines, past games, teams</label><br>
         <input name="update" value="Do selected action" type="submit">
     </form>
 {% else %}
@@ -42,8 +44,5 @@ Please select a maintenance action
  <input name="form_submitted" value="1" type="hidden">
  <input name="update" value="Do selected action" type="submit">
 </form> -->
-<p>
-    <a href="{%  url 'teams'  %}">View Teams</a>
-</p>
+
 </body>
-</html>
