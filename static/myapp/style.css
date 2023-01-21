@@ -8,6 +8,12 @@ h2 {
     font-size: 50px;
 }
 
+input[type='text'] {
+    background-color: black;
+    color: yellow;
+
+}
+
 span {
     color: white;
 }
@@ -19,7 +25,10 @@ p {
 tr, th{
     text-align: center;
     padding: 15px;
+    font-family: 'Press Start 2P';
+    background-color: black;
 }
+
 
 a {
     color: white;
@@ -58,17 +67,13 @@ center {
 
 .point {
     color: yellow;
-    font-family: 'Press Start 2P'
-}
-
-.grd-head-cont{
-        background-color: black;
-    }
-
-    /* header cell */
-.grd-head-cont th{
+    font-family: 'Press Start 2P';
+    margin-left: auto;
+    margin-right: auto;
     background-color: black;
 }
+
+
 
 
 
