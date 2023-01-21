@@ -946,9 +946,11 @@ def get_bet_rank():
     for i in all_lines:
         if i in win_percentage:
             if all_lines[i] > 0:
-                algo[i] = ((bet_size * (all_lines[i] / 100)) * (win_percentage[i][0] / win_percentage[i][1]))
+                algo[i] = (((bet_size * (all_lines[i] / 100)) * (win_percentage[i][0] / win_percentage[i][1]))
+                           + (-bet_size * (1 - (win_percentage[i][0] / win_percentage[i][1]))))
             elif all_lines[i] < 0:
-                algo[i] = ((bet_size * (100 / abs(all_lines[i]))) * (win_percentage[i][0] / win_percentage[i][1]))
+                algo[i] = (((bet_size * (100 / abs(all_lines[i]))) * (win_percentage[i][0] / win_percentage[i][1]))
+                           + (-bet_size * (1 - (win_percentage[i][0] / win_percentage[i][1]))))
             else:
                 algo[i] = 0
     algo = {k: v for k, v in sorted(algo.items(), key=lambda item: item[1], reverse=True)}
@@ -978,8 +980,9 @@ def get_bet_rank():
 
     ##Combines ranked dictionary of all outputs with team as key
 
-    ranked_bets = {i:[all_lines[i],float((win_percentage[i][0] / win_percentage[i][1]) * 100),
-                      round(sum(winnings[i]),2)] for i in algo}
+    ranked_bets = {i: [all_lines[i], float((win_percentage[i][0] / win_percentage[i][1]) * 100),
+                       round(sum(winnings[i]), 2), round(algo[i], 2)] for i in algo}
+
     return(ranked_bets)
 
 def add_bet_rank(ranked_bets):
@@ -988,10 +991,12 @@ def add_bet_rank(ranked_bets):
         ranked_line = ranked_bets[i][0]
         ranked_win_percentage = ranked_bets[i][1]
         ranked_winnings = ranked_bets[i][2]
+        ranked_payout = ranked_bets[i][3]
         try:
             s = Bets.objects.get(team=ranked_team, line=ranked_line,
-                                 percent=ranked_win_percentage, winnings=ranked_winnings)
+                                 percent=ranked_win_percentage, winnings=ranked_winnings,
+                                 payout=ranked_payout)
         except:
             s = Bets(team=ranked_team, line=ranked_line,
-                                 percent=ranked_win_percentage, winnings=ranked_winnings)
+                     percent=ranked_win_percentage, winnings=ranked_winnings, payout=ranked_payout)
             s.save()

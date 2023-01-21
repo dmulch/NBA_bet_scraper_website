@@ -75,9 +75,10 @@ class Bets(models.Model):
     team = models.CharField(max_length=3)
     line = models.IntegerField(default=0)
     percent = models.FloatField(default=0.0)
-    winnings = models.IntegerField(default=0)
+    winnings = models.FloatField(default=0.0)
+    payout = models.FloatField(default=0.0)
 
     def __str__(self):
-        return self.team + " " + str(self.line) + " " + str(self.percent) + " " + str(self.winnings)
+        return self.team + " " + str(self.line) + " " + str(self.percent) + " " + str(self.winnings) + " " + str(self.payout)
     def __repr__(self):
-        return self.team + " " + str(self.line) + " " + str(self.percent) + " " + str(self.winnings)
+        return self.team + " " + str(self.line) + " " + str(self.percent) + " " + str(self.winnings) + " " + str(self.payout)
