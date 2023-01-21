@@ -20,11 +20,11 @@
     <span style="float:right; color: yellow">
             {% if user.username %}
                 <span class="large-font">Hello {{ user.username }}!</span><br>
-                <a href="{% url 'logout' %}"><button>logout</button></a>
+                <a href="{% url 'logout' %}"><button style="background-color: grey">logout</button></a>
             {% else %}
                 <span class="large-font">Hello Anonymous User!</span><br>
-                <a href="{% url 'login' %}"><button>login</button></a>/
-                <a href="{% url 'register_user' %}"><button>register</button></a>
+                <a href="{% url 'login' %}"><button style="background-color: grey">login</button></a>/
+                <a href="{% url 'register_user' %}"><button style="background-color: grey">register</button></a>
             {% endif %}
         </span>
         {% block content %}

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<h3>Login to NBA Bets</h3>
+<h3 style="color: yellow; font-size: medium" class="point">Login to NBA Bets</h3>
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
     {% else %}
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            <table>
+            <table style="color: yellow; font-size: medium" class="point">
                 <tr>
                     <td>{{ form.username.label_tag }}</td>
                     <td>{{ form.username }}</td>
@@ -16,7 +16,7 @@
                     <td>{{ form.password }}</td>
                 </tr>
             </table>
-        <input type="submit" value="login">
+        <input type="submit" value="login" style="background-color: lightgray">
         <input type="hidden" value="{{ next }}" name="next">
         </form>
     {% endif %}
