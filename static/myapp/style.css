@@ -4,7 +4,8 @@ h1 {
 }
 
 h2 {
-    color: #275e3e;
+    color: yellow;
+    font-size: 50px;
 }
 
 span {
@@ -15,14 +16,21 @@ p {
     color: white;
 }
 
-tr{
-
+tr, th{
+    text-align: center;
+    padding: 15px;
 }
 
 a {
     color: white;
     text-decoration-line: underline;
 }
+
+center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #footer { /* use with id = "footer" */
    display:inline-block;
    width:100%;
@@ -47,4 +55,10 @@ a {
     color: yellow;
     font-family: 'Tomorrow', sans-serif;
 }
+
+.point {
+    color: yellow;
+    font-family: 'Press Start 2P'
+}
+
 
