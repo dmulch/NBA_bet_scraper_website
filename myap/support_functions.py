@@ -209,9 +209,16 @@ def get_line_today():
 def get_bet_rank():
     ##Used to reformat input historical score data
     team_results = []
+    past_games = PastGames.objects.all()
+
     for i in PastGames.objects.all():
-        team_results.append([i[0], i[2], i[5], i[1]])
-        team_results.append([i[3], i[5], i[2], i[4]])
+        team_results.append([i.home_team, i.home_score, i.away_score, i.home_money_line, i.game_date])
+        team_results.append([i.away_team, i.away_score, i.home_score, i.away_money_line, i.game_date])
+
+    def take_date(x):
+        return x[4]
+
+    team_results.sort(key=take_date, reverse=True)
 
     ##Calculates games won out of last_x number of games played
     last_x = 10
@@ -239,8 +246,8 @@ def get_bet_rank():
     all_lines = {}
 
     for game in TodayLines.objects.all():
-        all_lines[game[0]] = game[1]
-        all_lines[game[2]] = game[3]
+        all_lines[game.home_team] = game.home_money_line
+        all_lines[game.away_team] = game.away_money_line
 
     ##Combining winning percentage and today's lines to calculate today's expected return
     algo = {}
