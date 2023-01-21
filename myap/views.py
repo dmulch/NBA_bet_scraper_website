@@ -125,7 +125,7 @@ def register_new_user(request):
         return render(request, "registration/register.html", context)
 
 def bets(request):
-    data = {}
+    data = dict()
     rankings = Bets.objects.all()
     data['ranked_bets'] = rankings
     return render(request, "bets.html", context=data)
