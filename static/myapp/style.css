@@ -61,4 +61,14 @@ center {
     font-family: 'Press Start 2P'
 }
 
+.grd-head-cont{
+        background-color: black;
+    }
+
+    /* header cell */
+.grd-head-cont th{
+    background-color: black;
+}
+
+
 
