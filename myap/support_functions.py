@@ -252,14 +252,18 @@ def get_bet_rank():
     ##Combining winning percentage and today's lines to calculate today's expected return
     algo = {}
     bet_size = 100
+
     for i in all_lines:
-        if i[0] in win_percentage:
-            if i[1] > 0:
-                algo[i[0]] = ((bet_size * (i[1] / 100)) * (win_percentage[i[0]][0] / win_percentage[i[0]][1]))
-            elif i[1] < 0:
-                algo[i[0]] = ((bet_size * (100 / abs(i[1]))) * (win_percentage[i[0]][0] / win_percentage[i[0]][1]))
+        if i in win_percentage:
+            if all_lines[i] > 0:
+                algo[i] = ((bet_size * (all_lines[i] / 100)) * (win_percentage[i][0] / win_percentage[i][1]))
+            elif all_lines[i] < 0:
+                algo[i] = ((bet_size * (100 / abs(all_lines[i]))) * (win_percentage[i][0] / win_percentage[i][1]))
+            else:
+                algo[i] = 0
+
     algo = {k: v for k, v in sorted(algo.items(), key=lambda item: item[1], reverse=True)}
-    ranked_bets = {i:all_lines[i] for i in algo}
+    ranked_bets = {i: all_lines[i] for i in algo}
     return(ranked_bets)
 
 def add_bet_rank(ranked_bets):
@@ -270,5 +274,4 @@ def add_bet_rank(ranked_bets):
             s = Bets.objects.get(team=ranked_team, line=ranked_line)
         except:
             s = Bets(team=ranked_team, line=ranked_line)
-            print(s)
-            #s.save()
+            s.save()
