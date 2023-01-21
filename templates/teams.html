@@ -15,8 +15,8 @@
     <h2 class="text-center point">Team Names</h2>
     <table style="color: yellow; background-color: black" class="point" id="teams">
         <tr>
-            <th>Abbreviation</th>
-            <th>Team Name</th>
+            <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">Abbreviation</th>
+            <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">Team Name</th>
         </tr>
         {% for t in teams %}
             <tr>
@@ -34,10 +34,6 @@
               },
               filters_row_index: 1,
               state: true,
-              alternate_rows: false,
-              rows_counter: true,
-              btn_reset: true,
-              status_bar: true,
               msg_filter: 'Filtering...',
                 tbl_head_css_class: 'grd-head-cont',
             };
