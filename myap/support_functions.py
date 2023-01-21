@@ -138,7 +138,7 @@ def get_results():
     import datetime
     from datetime import date, timedelta
     yesterday=date.today()-timedelta(days=1)
-    season_start=datetime.date(2022, 12, 21)
+    season_start=datetime.date(date.today()-timedelta(days=15)) #keeping this to the actual season start (10/18/22) causes render to crash
     #print(season_start+timedelta(days=1))
     counter = season_start
     list_of_dates=list()
