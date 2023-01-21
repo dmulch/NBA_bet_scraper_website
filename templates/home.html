@@ -39,17 +39,16 @@ The current time is:
         <div class="row">
             <div class="col-sm-7">
                 <h3 class="tomorrow">Power Picks</h3>
-                <p>Using this app, you can get exchange rates easily!</p>
+                <p>See todays best pics using our proprietary ranking algorithm <a href="{% url 'bets' %}">here</a>.</p>
             </div>
             <div class="col-sm-5">
                 <h3 class="tomorrow">Navigation</h3>
-                <p> Please choose an action from the following options
                 <p>
+                    <a href="{% url 'lines' %}">Todays Lines</a><br>
+                    <a href="{% url 'past' %}">Past Games</a><br>
+                    <a href="{% url 'teams' %}">Current Teams</a><br>
                     <a href="{% url 'maintenance' %}">Do maintenance</a><br>
-                    <a href="{% url 'past' %}">See past results</a><br>
-                    <a href="{% url 'teams' %}">See current teams</a><br>
-                    Get rates<br>
-                    Other stuff<br></p>
+
             </div>
         </div>
     </div>

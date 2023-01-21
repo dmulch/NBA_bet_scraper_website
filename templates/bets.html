@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class=" text-center">
-        <p>These are the ranked bets for today:</p>
-    </div>
-    <table>
+    <head>
+        <span style="float:center; color: yellow">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'bets' %}">Power Bets</a>
+            <a href="{% url 'lines' %}">Todays Lines</a>
+            <a href="{% url 'past' %}">Past Games</a>
+            <a href="{% url 'teams' %}">Current Teams</a>
+        </span>
+    </head>
+    <h2 class=" text-center point">
+        Todays Best Bets</h2>
+    <table class="point">
             <th>Team</th>
             <th>Line</th>
         </tr>
