@@ -47,9 +47,9 @@ class PastGames(models.Model):
     away_money_line = models.IntegerField(default=0)
     game_date = models.DateField()
     def __repr__(self):
-        return self.home_team + " " + str(self.home_score) + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_score) + " " + str(self.away_money_line)
+        return self.home_team + " " + str(self.home_score) + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_score) + " " + str(self.away_money_line) + " " + str(self.game_date)
     def __str__(self):
-        return self.home_team + " " + str(self.home_score) + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_score) + " " + str(self.away_money_line)
+        return self.home_team + " " + str(self.home_score) + " " + str(self.home_money_line) + " " + self.away_team + " " + str(self.away_score) + " " + str(self.away_money_line) + " " + str(self.game_date)
 
 class TodayLines(models.Model):
     away_team = models.CharField(max_length=3)
