@@ -133,7 +133,7 @@ def register_new_user(request):
         dob = request.POST["dob"]
         acct_holder = AccountHolder(user=new_user,date_of_birth=dob)
         acct_holder.save()
-        return render(request,"teams.html",context=dict())
+        return render(request,"registration/login.html",context=dict())
     else:
         form = UserCreationForm()
         context['form'] = form
