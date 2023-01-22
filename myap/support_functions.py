@@ -138,7 +138,7 @@ def get_results():
     import datetime
     from datetime import date, timedelta
     yesterday=date.today()-timedelta(days=1)
-    season_start=datetime.date(2023, 1, 22) #keeping this to the actual season start (10/18/22) causes render to crash
+    season_start=datetime.date(2023, 1, 21) #keeping this to the actual season start (10/18/22) causes render to crash
     #print(season_start+timedelta(days=1))
     counter = season_start
     list_of_dates=list()
@@ -843,7 +843,7 @@ def get_results():
  ['BKN', 156, 117, 'UTA', -186, 106, '2023-01-20'],
  ['MEM', -275, 121, 'LAL', 225, 122, '2023-01-20'],
  ['OKC', 164, 113, 'SAC', -196, 118, '2023-01-20']]
-    print('dates in')
+    #print(list_of_dates)
     for day_in in list_of_dates:
         url = 'https://www.scoresandodds.com/nba?date='+day_in
         reponse = requests.get(url)
