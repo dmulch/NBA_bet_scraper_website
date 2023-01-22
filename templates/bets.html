@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{%  load static %}
 {% block content %}
     <head>
         <span style="float:center; color: yellow">
@@ -10,13 +11,13 @@
         </span>
     </head>
     <h2 class=" text-center point">
-        Today's Best Bets</h2>
-    <table class="point" >
-            <th>Team</th>
-            <th>Today's Line</th>
-            <th>ML Winning %</th>
-            <th>ML Winning $</th>
-            <th>Expected Payout $</th>
+        Todays Best Line Bets</h2>
+    <table style="color: yellow; background-color: black" class="point" id="bets" >
+            <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">Team</th>
+            <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">Today's Line</th>
+            <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">ML Winning %</th>
+            <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">ML Winning $</th>
+            <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">Expected Payout $</th>
         </tr>
         {% for t in ranked_bets %}
             <tr>
@@ -25,4 +26,19 @@
             </tr>
         {% endfor %}
     </table>
+<script src="{% static "myapp/tablefilter/tablefilter.js" %}"></script>
+<script data-config="">
+ var filtersConfig = {
+  base_path: 'https://unpkg.com/tablefilter@latest/dist/tablefilter/',
+  auto_filter: {
+                    delay: 110 //milliseconds
+              },
+              filters_row_index: 1,
+              state: true,
+              msg_filter: 'Filtering...',
+                tbl_head_css_class: 'grd-head-cont',
+            };
+            var tf = new TableFilter('bets', filtersConfig);
+            tf.init();
+</script>
 {%  endblock %}

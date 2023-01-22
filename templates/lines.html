@@ -12,11 +12,11 @@
     </head>
 <h2 class=" text-center point">Todays Lines</h2>
 
-<table style="color: yellow" class="point center">
-        <th>Away Team</th>
-        <th>Away Line</th>
-        <th>Home Team</th>
-        <th>Home Line</th>
+<table style="color: yellow; background-color: black" class="point" id="lines">
+        <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">Away Team</th>
+        <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">Away Line</th>
+        <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">Home Team</th>
+        <th style="background-color: black; font-family: 'Press Start 2P'; color: yellow">Home Line</th>
     </tr>
     {% for t in line %}
         <tr>
@@ -24,4 +24,19 @@
         </tr>
     {% endfor %}
 </table>
+<script src="{% static "myapp/tablefilter/tablefilter.js" %}"></script>
+<script data-config="">
+ var filtersConfig = {
+  base_path: 'https://unpkg.com/tablefilter@latest/dist/tablefilter/',
+  auto_filter: {
+                    delay: 110 //milliseconds
+              },
+              filters_row_index: 1,
+              state: true,
+              msg_filter: 'Filtering...',
+                tbl_head_css_class: 'grd-head-cont',
+            };
+            var tf = new TableFilter('lines', filtersConfig);
+            tf.init();
+</script>
 {%  endblock %}
