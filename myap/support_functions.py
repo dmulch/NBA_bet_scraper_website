@@ -919,16 +919,16 @@ def get_bet_rank():
                 if win_percentage[game[0]][1] < last_x:  # less than x games analyzed
                     win_percentage[game[0]][0] += 1
                     win_percentage[game[0]][1] += 1
-                else:  # x games analyzed
-                    win_percentage[game[0]][0] += 1
+                #else:  # x games analyzed
+                    #win_percentage[game[0]][0] += 1
             else:  # not in dictionary
                 win_percentage[game[0]] = [1, 1]
         else:  # lost game
             if game[0] in win_percentage:  # in dictionary
                 if win_percentage[game[0]][1] < last_x:  # less than x games analyzed
                     win_percentage[game[0]][1] += 1
-                else:  # x games analyzed
-                    win_percentage[game[0]][0] -= 1
+                #else:  # x games analyzed
+                    #win_percentage[game[0]][0] -= 1
             else:  # not in dictionary
                 win_percentage[game[0]] = [0, 1]
 
