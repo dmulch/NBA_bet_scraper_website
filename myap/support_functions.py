@@ -958,25 +958,33 @@ def get_bet_rank():
     ##Calculating total winnings ($) for past xx games based on bet size $xx
     winnings = {}
     for game in team_results:
-        if game[1] > game[2]:  # won game
-            if game[3] > 0:  # underdog
+        if game[3] == 0:  # moneyline == 0
+            if game[0] in winnings:
+                if len(winnings[game[0]]) < last_x:
+                    winnings[game[0]].append(0)
+            else:
+                winnings[game[0]] = [0]
+        else:  # moneyline != 0
+            if game[1] > game[2]:  # won game
+                if game[3] > 0:  # underdog
+                    if game[0] in winnings:  # in dictionary
+                        if len(winnings[game[0]]) < last_x:
+                            winnings[game[0]].append((bet_size * (game[3] / 100)))
+                    else:  # not in dictionary
+                        winnings[game[0]] = [(bet_size * (game[3] / 100))]
+                else:  # favorite
+                    if game[0] in winnings:  # in dictionary
+                        if len(winnings[game[0]]) < last_x:  # x games analyzed
+                            winnings[game[0]].append((bet_size * (100 / abs(game[3]))))
+                    else:  # not in dictionary
+                        winnings[game[0]] = [(bet_size * (100 / abs(game[3])))]
+            else:  # lost game
                 if game[0] in winnings:  # in dictionary
-                    if len(winnings[game[0]]) < last_x:
-                        winnings[game[0]].append((bet_size * (game[3] / 100)))
+                    if len(winnings[game[0]]) > last_x:  # x games analyzed
+                        winnings[game[0]].append(-bet_size)
                 else:  # not in dictionary
-                    winnings[game[0]] = [(bet_size * (game[3] / 100))]
-            else:  # favorite
-                if game[0] in winnings:  # in dictionary
-                    if len(winnings[game[0]]) < last_x:  # x games analyzed
-                        winnings[game[0]].append((bet_size * (100 / abs(game[3]))))
-                else:  # not in dictionary
-                    winnings[game[0]] = [(bet_size * (100 / abs(game[3])))]
-        else:  # lost game
-            if game[0] in winnings:  # in dictionary
-                if len(winnings[game[0]]) > last_x:  # x games analyzed
-                    winnings[game[0]].append(-bet_size)
-            else:  # not in dictionary
-                winnings[game[0]] = [-bet_size]
+                    winnings[game[0]] = [-bet_size]
+
 
     ##Combines ranked dictionary of all outputs with team as key
 
